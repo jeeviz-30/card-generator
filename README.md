@@ -77,6 +77,18 @@ The application will launch at `http://localhost:3000`.
 
 ---
 
+## 🌐 Deploy to Render.com
+
+1. Go to [Render Dashboard](https://dashboard.render.com/) and click **New +** -> **Web Service**.
+2. Connect your GitHub repository: `https://github.com/jeeviz-30/card-generator`.
+3. Configure the settings:
+   - **Environment**: `Node`
+   - **Build Command**: `npm install`
+   - **Start Command**: `npm start`
+4. Click **Create Web Service**. Your live web app will be deployed automatically!
+
+---
+
 ## 📡 API & Server Endpoints
 
 | Method | Endpoint | Description |

@@ -3,12 +3,13 @@ const path = require('path');
 const fs = require('fs');
 
 // Ensure db directory exists
-const dbDir = path.join(__dirname, 'database');
+const dbFilePath = process.env.DATABASE_PATH || path.join(__dirname, 'database', 'profiles.db');
+const dbDir = path.dirname(dbFilePath);
 if (!fs.existsSync(dbDir)) {
   fs.mkdirSync(dbDir, { recursive: true });
 }
 
-const db = new Database(path.join(dbDir, 'profiles.db'));
+const db = new Database(dbFilePath);
 
 // Initialize Database Table
 db.exec(`

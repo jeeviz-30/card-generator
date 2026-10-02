@@ -223,6 +223,6 @@ app.get('/api/profiles/:slug', (req, res) => {
 });
 
 // Start Express Server
-app.listen(PORT, () => {
-  console.log(`🚀 User Profile Card Generator server running on http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 User Profile Card Generator server running on port ${PORT}`);
 });
