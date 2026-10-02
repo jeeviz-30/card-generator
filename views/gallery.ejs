@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profiles Gallery - User Profile Card Generator</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <%- include('components/navbar', { activePage: 'gallery' }) %>
+
+  <main class="main-content">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+      <div>
+        <h1 class="panel-title" style="font-size: 1.8rem;">Database Profiles Gallery</h1>
+        <p class="panel-subtitle">Browse dynamically rendered user profile cards stored in the SQLite database.</p>
+      </div>
+      <a href="/" class="btn btn-primary">+ Create New Profile Card</a>
+    </div>
+
+    <!-- Search Bar -->
+    <form action="/gallery" method="GET" class="search-bar-container">
+      <input type="text" name="q" class="form-input search-input" placeholder="Search profiles by name, skill, job title..." value="<%= searchQuery || '' %>">
+      <button type="submit" class="btn btn-secondary">Search</button>
+      <% if (searchQuery) { %>
+        <a href="/gallery" class="btn btn-secondary">Clear</a>
+      <% } %>
+    </form>
+
+    <% if (profiles.length === 0) { %>
+      <div class="panel" style="text-align: center; padding: 4rem 2rem;">
+        <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff;">No Profile Cards Found</h3>
+        <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
+          <%= searchQuery ? `No profiles matched "${searchQuery}".` : 'No user profiles exist in the database yet.' %>
+        </p>
+        <a href="/" class="btn btn-primary">Create the First Profile Card &rarr;</a>
+      </div>
+    <% } else { %>
+      <div class="gallery-grid">
+        <% profiles.forEach(profile => { %>
+          <div style="position: relative;">
+            <%- cardHTMLs[profile.id] %>
+          </div>
+        <% }); %>
+      </div>
+    <% } %>
+
+  </main>
+
+  <%- include('components/footer') %>
+
+  <script src="/js/cardExport.js"></script>
+</body>
+</html>

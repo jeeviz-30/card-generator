@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= profile.full_name %> - Profile Card | ProfileCraft</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <%- include('components/navbar', { activePage: '' }) %>
+
+  <main class="main-content" style="max-width: 650px;">
+    
+    <div style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+      <a href="/gallery" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+        &larr; Back to Profiles Gallery
+      </a>
+      <span class="badge badge-complete">Database Record #<%= profile.id %></span>
+    </div>
+
+    <!-- Server-Side Dynamically Rendered Profile Card -->
+    <%- cardHTML %>
+
+    <!-- Actions Panel -->
+    <div class="panel" style="margin-top: 1.5rem;">
+      <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: #fff;">
+        ⚡ Profile Card Options & Export
+      </h3>
+
+      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+        <button onclick="copyProfileLink('<%= profile.slug %>')" class="btn btn-primary" style="flex: 1;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+          Copy Shareable Link
+        </button>
+
+        <button onclick="copyEmbedCode('<%= profile.slug %>')" class="btn btn-secondary" style="flex: 1;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+          Copy Embed HTML Code
+        </button>
+
+        <form action="/api/profiles/<%= profile.id %>/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this profile from database?');">
+          <button type="submit" class="btn btn-secondary" style="background: rgba(239, 68, 68, 0.15); color: #f87171; border-color: rgba(239, 68, 68, 0.3);">
+            Delete
+          </button>
+        </form>
+      </div>
+    </div>
+
+  </main>
+
+  <%- include('components/footer') %>
+
+  <script src="/js/cardExport.js"></script>
+</body>
+</html>
